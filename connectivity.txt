@@ -1,0 +1,35 @@
+import java.sql.*;
+
+public class Test {
+    public static void main(String arg[])
+    {
+    Connection connection = null;
+    try {
+    // below two lines are used for connectivity.
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectsam", "root", "password");
+    // mydb is database
+    // mydbuser is name of database
+    // mydbuser is password of database
+    
+    
+    Statement stmt= (Statement) connection.createStatement();
+    ResultSet resultSet;
+    resultSet = ((java.sql.Statement) stmt).executeQuery("select * from product");
+    int p_id;
+String p_name;
+while (resultSet.next()) {
+p_id = resultSet.getInt("p_id");
+p_name= resultSet.getString("p_name").trim();
+System.out.println("Code : " + p_id + " Title : " + p_name);
+
+}
+resultSet.close();
+((Connection) stmt).close();
+connection.close();
+}
+catch (Exception exception) {
+System.out.println(exception);
+}
+} // function ends
+} // class ends
